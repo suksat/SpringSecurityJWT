@@ -26,7 +26,7 @@ public class HelloRestController {
     @Autowired
     private MyUserDetailsService userDetailsService;
 
-    @PostMapping("/authenticate")
+    /*@PostMapping("/authenticate")
     public AuthenticationResponse createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest)
             throws Exception {
 
@@ -43,8 +43,26 @@ public class HelloRestController {
         final String jwt = jwtTokenUtil.generateToken(userDetails);
 
         return new AuthenticationResponse(jwt);
-    }
+    }*/
 
+    @PostMapping("/authenticate")
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest)
+            throws Exception {
+
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
+                            authenticationRequest.getPassword())
+            );
+        } catch (BadCredentialsException e) {
+            throw new Exception("Incorrect username or password", e);
+        }
+
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+        final String jwt = jwtTokenUtil.generateToken(userDetails);
+
+        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+    }
     @PostMapping("/api/secure")
     public ResponseEntity<String> accessSecuredEndpoint() {
         // Logic to handle the secured endpoint
