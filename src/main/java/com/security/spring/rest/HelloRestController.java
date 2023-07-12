@@ -5,6 +5,7 @@ import com.security.spring.modelDTO.AuthenticationResponse;
 import com.security.spring.service.MyUserDetailsService;
 import com.security.spring.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -42,5 +43,11 @@ public class HelloRestController {
         final String jwt = jwtTokenUtil.generateToken(userDetails);
 
         return new AuthenticationResponse(jwt);
+    }
+
+    @PostMapping("/api/secure")
+    public ResponseEntity<String> accessSecuredEndpoint() {
+        // Logic to handle the secured endpoint
+        return ResponseEntity.ok("Successfully Authenticated !");
     }
 }
