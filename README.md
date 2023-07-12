@@ -45,7 +45,7 @@ The project includes the following dependencies:
 ### Testing the Application
 
 1. Clone the repository to your local machine.
-2. Open the project in IntelliJ IDEA.
+2. Open the project in IntelliJ IDEA or compatible IDE.
 3. Configure the project dependencies in the `pom.xml` file. Make sure you have the required dependencies and their correct versions.
 4. Build the project using Maven: `mvn clean install`.
 5. To run the application:
@@ -62,7 +62,7 @@ The project includes the following dependencies:
     }
 9. This will return a JWT token.
 10.  Include the JWT token in the request header as `Authorization: Bearer <token>` for the secured endpoints.
-11. 2. Access Secured Endpoint:
+11. Access Secured Endpoint:
 - **Method**: GET 
 - **Endpoint**: Example secured endpoint: `http://localhost:8080/api/secure`
 - **Headers**:
